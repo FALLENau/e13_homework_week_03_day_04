@@ -15,7 +15,7 @@ CREATE TABLE locations (
 
 CREATE TABLE visists (
 id serial4 primary key,
-user_id INT4 REFERENCES user(id) ON DELETE CASCADE
-locations(id) 
+user_id INT4 REFERENCES user(id) ON DELETE CASCADE,
+location_id INT4 REFERENCES locations(id) ON DELETE CASCADE,
 review TEXT
 );
