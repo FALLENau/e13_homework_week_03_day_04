@@ -23,9 +23,7 @@ class Location
     INNER JOIN visits
     ON users.id = visits.user_id
     WHERE visits.location_id = #{@id}"
-    user_hashes = SqlRunner.run(sql)
-    result = user_hashes.map {|user_hash| Location.new(user_hash)}
-    return result
+    return User.map_items(sql)
   end
 
   def self.all()
