@@ -1,6 +1,6 @@
-DROP TABLE visits;
-DROP TABLE users;
-DROP TABLE locations;
+DROP TABLE visits CASCADE;
+DROP TABLE locations CASCADE;
+DROP TABLE users CASCADE;
 
 CREATE TABLE users (
   id SERIAL4 PRIMARY KEY,
@@ -13,9 +13,9 @@ CREATE TABLE locations (
   name VARCHAR(255)
 );
 
-CREATE TABLE visists (
+CREATE TABLE visits (
 id serial4 primary key,
-user_id INT4 REFERENCES user(id) ON DELETE CASCADE,
+user_id INT4 REFERENCES users(id) ON DELETE CASCADE,
 location_id INT4 REFERENCES locations(id) ON DELETE CASCADE,
 review TEXT
 );

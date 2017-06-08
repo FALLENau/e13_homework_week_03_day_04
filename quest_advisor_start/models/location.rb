@@ -1,9 +1,9 @@
 require_relative("../db/sql_runner")
 
-class Location 
+class Location
 
   attr_reader :id
-  attr_accessor :name, :category 
+  attr_accessor :name, :category
 
   def initialize( options )
     @id = options['id'].to_i
@@ -17,6 +17,17 @@ class Location
     @id = location['id'].to_i
   end
 
+  def users()
+    sql = "SELECT users.*
+    FROM users
+    INNER JOIN visits
+    ON users.id = visits.user_id
+    WHERE visits.location_id = #{@id}"
+    user_hashes = SqlRunner.run(sql)
+    result = user_hashes.map {|user_hash| Location.new(user_hash)}
+    return result
+  end
+
   def self.all()
     sql = "SELECT * FROM locations"
     locations = SqlRunner.run(sql)
@@ -24,7 +35,7 @@ class Location
     return result
   end
 
-  def self.delete_all() 
+  def self.delete_all()
     sql = "DELETE FROM locations"
     SqlRunner.run(sql)
   end
