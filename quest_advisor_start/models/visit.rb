@@ -3,7 +3,7 @@ require_relative("../db/sql_runner")
 class Visit
 
   attr_reader :id
-  attr_accessor :user_id, :location_id, :review 
+  attr_accessor :user_id, :location_id, :review
 
   def initialize( options )
     @id = options['id'].to_i
@@ -18,19 +18,19 @@ class Visit
     visit = SqlRunner.run( sql ).first
     @id = visit['id'].to_i
   end
-  
+
   def user()
     sql = "SELECT * FROM users WHERE id = #{@user_id}"
     user = SqlRunner.run(sql)[0]
     return User.new(user)
   end
-  
+
   def location()
   sql = "SELECT * FROM visit WHERE id = #{@location_id}"
   location_hash = SqlRunner.run(sql)[0]
   retrun Location.new(location_hash)
   end
-  
+
 
   def self.all()
     sql = "SELECT * FROM visits"
@@ -39,7 +39,7 @@ class Visit
     return result
   end
 
-  def self.delete_all() 
+  def self.delete_all()
     sql = "DELETE FROM visits"
     SqlRunner.run(sql)
   end
